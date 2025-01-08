@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\Acl;
 use App\Helpers\Hadis;
 use App\Models\Config;
 use App\Models\Device;
@@ -17,6 +18,9 @@ class DashboardController extends BaseController
 {
     public function index()
     {
+
+//        dd(auth()->user());
+//        dd($this->user->hasPermission('create-user'));
         if($this->role === 'user' || $this->role === 'manager'){
             return to_route('map');
         }

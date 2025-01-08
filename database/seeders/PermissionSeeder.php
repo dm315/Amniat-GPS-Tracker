@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Permission;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -64,5 +66,9 @@ class PermissionSeeder extends Seeder
         ];
 
         DB::table('permissions')->insert($permissions);
+
+        $superAdminUser = User::where('user_type', 2)->first();
+
+        $superAdminUser->permissions()->sync(Permission::all()->pluck('id')->toArray());
     }
 }

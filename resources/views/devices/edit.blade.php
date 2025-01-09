@@ -79,16 +79,29 @@
                     </div>
                     @endnotRole
 
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label" for="user_id">مختص به وسیله نقلیه
-                            <sup class="text-danger">*</sup>
-                        </label>
-                        @php
-                            $options = $vehicles->mapWithKeys(fn($item) => [$item->id => implode(' - ', [$item->name , $item->license_plate])])->toArray();
-                        @endphp
-                        <x-partials.alpine.input.select-option :$options
-                                                               name="vehicle_id" :value="$device->vehicle_id"/>
-                        <x-input-error :messages="$errors->get('vehicle_id')" class="mt-2"/>
+                    <div class="col-md-6 mb-3 row" x-data="{show: @js(!old('personal', $device->personal))}">
+                        <div class="col-md-2 mb-3 d-flex align-items-end">
+                            <div class="form-check cursor-pointer">
+                                <input class="form-check-input" name="personal" id="vehicle_type"
+                                       @checked(old('personal', $device->personal)) type="checkbox" value="1" @change="show = !show">
+                                <label class="form-check-label cursor-pointer ms-1" for="vehicle_type">انفــرادی</label>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-10 mb-3" x-show="show">
+                            <label class="form-label" for="user_id">مختص به وسیله نقلیه
+                                <sup class="text-danger">*</sup>
+                            </label>
+                            @php
+                                $options = $vehicles->mapWithKeys(fn($item) => [$item->id => implode(' - ', [$item->name , $item->license_plate])])->toArray();
+                            @endphp
+                            <x-partials.alpine.input.select-option :$options
+                                                                   name="vehicle_id" :value="$device->vehicle_id"/>
+                            <x-input-error :messages="$errors->get('vehicle_id')" class="mt-2"/>
+                        </div>
+
+                        <x-input-error :messages="$errors->get('personal')" class="mt-2"/>
                     </div>
 
                     <div class="col-md-6 mb-3">

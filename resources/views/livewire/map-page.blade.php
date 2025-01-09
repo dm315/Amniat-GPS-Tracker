@@ -47,7 +47,7 @@
                                         <div class="card-body p-0 device-sidebar overflow-y-auto">
                                             <div class="col-12 position-absolute" style="z-index: 7">
                                                 <input class="form-control rounded-0" id="search" type="text"
-                                                    placeholder="جستجو بر اساس نام یا شناسه..." aria-label="جسنجو"
+                                                    placeholder="جستجو بر اساس نام دستگاه,کاربر یا شناسه..." aria-label="جسنجو"
                                                     wire:model.live.debounce.850ms="search">
                                                 <x-input-error :messages="$errors->get('search')" class="mt-1" />
                                             </div>

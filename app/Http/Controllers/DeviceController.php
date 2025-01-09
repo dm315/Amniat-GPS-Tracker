@@ -152,6 +152,8 @@ class DeviceController extends BaseController
 
         $validated = $request->validated();
         $validated['user_id'] = $this->role === 'user' ? auth()->id() : $request->user_id;
+        $validated['personal'] = $request->personal ? 1 : 0;
+        $validated['vehicle_id'] = $request->personal ? null : $request->vehicle_id;
 
         $device->update($validated);
 

@@ -80,7 +80,8 @@ class MapPage extends Component
                 ->where('status', 1)
                 ->when($this->search !== '', function ($q) {
                     $q->whereLike('name', "%{$this->search}%")
-                        ->orWhereLike('serial', "%{$this->search}%");
+                        ->orWhereLike('serial', "%{$this->search}%")
+                        ->orWhereHas('user', fn($query) => $query->whereLike('name', "%{$this->search}%"));
                 })
                 ->orderByDesc('connected_at')
                 ->take($this->take)
@@ -92,7 +93,8 @@ class MapPage extends Component
                 ->where('status', 1)
                 ->when($this->search !== '', function ($q) {
                     $q->whereLike('name', "%{$this->search}%")
-                        ->orWhereLike('serial', "%{$this->search}%");
+                        ->orWhereLike('serial', "%{$this->search}%")
+                        ->orWhereHas('user', fn($query) => $query->whereLike('name', "%{$this->search}%"));
                 })
                 ->orderByDesc('connected_at')
                 ->take($this->take)
@@ -101,7 +103,9 @@ class MapPage extends Component
             return Device::with(['vehicle', 'user'])
                 ->where('status', 1)
                 ->when($this->search !== '', function ($q) {
-                    $q->whereLike('name', "%{$this->search}%")->orWhereLike('serial', "%{$this->search}%");
+                    $q->whereLike('name', "%{$this->search}%")
+                        ->orWhereLike('serial', "%{$this->search}%")
+                        ->orWhereHas('user', fn($query) => $query->whereLike('name', "%{$this->search}%"));
                 })
                 ->orderByDesc('connected_at')
                 ->take($this->take)

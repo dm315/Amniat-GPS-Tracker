@@ -12,7 +12,7 @@
     <link rel="icon" href="{{ asset('assets/images/logo/favicon.ico') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ asset('assets/images/logo/favicon.ico') }}" type="image/x-icon">
     <link rel="manifest" href="{{ asset('assets/images/logo/favicon/site.webmanifest') }}">
-    <title>@yield('title', ' پلیس امنیت اقتصادی سامانه هوشمند ردیابی GPS')</title>
+    <title>{{ $title ?? 'سامانه ردیابی GPS پلیس امنیت اقتصادی' }}</title>
     <!-- Google font-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/font-awesome.css')}}">
     <!-- ico-font-->

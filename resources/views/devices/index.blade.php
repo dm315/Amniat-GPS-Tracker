@@ -81,16 +81,26 @@
                                         </td>
                                         <td>{{ $device?->phone_number }}</td>
                                         <td>
-                                            @if(can('edit-vehicle'))
-                                            <a href="{{ route('vehicle.edit', $device?->vehicle_id) }}" target="_blank">
-                                                {{ $device->vehicle?->name }}
-                                                <small class="text-muted d-block">{{ $device->vehicle?->license_plate }}</small>
-                                            </a>
-                                            @else
-                                                <span>
+                                            @if($device->vehicle_id)
+
+                                                @if(can('edit-vehicle'))
+                                                    <a href="{{ route('vehicle.edit', $device?->vehicle_id) }}"
+                                                       target="_blank">
+                                                        {{ $device->vehicle?->name }}
+                                                        <small
+                                                            class="text-muted d-block">{{ $device->vehicle?->license_plate }}</small>
+                                                    </a>
+                                                @else
+                                                    <span>
                                                     {{ $device->vehicle?->name }}
-                                                    <small class="text-muted d-block">{{ $device->vehicle?->license_plate }}</small>
+                                                    <small
+                                                        class="text-muted d-block">{{ $device->vehicle?->license_plate }}</small>
                                                 </span>
+                                                @endif
+                                            @elseif($device->personal)
+                                                <span class="badge badge-light-secondary text-dark dana">انـــفــرادی</span>
+                                            @else
+                                                -
                                             @endif
                                         </td>
                                         @notRole(['user'])
@@ -101,7 +111,8 @@
                                         </td>
                                         @endrole
                                         <td>
-                                           <x-partials.alpine.change-status :status="(bool)$device->status" :url="route('device.change-status',$device->id)" />
+                                            <x-partials.alpine.change-status :status="(bool)$device->status"
+                                                                             :url="route('device.change-status',$device->id)"/>
                                         </td>
                                         <td>{{ jalaliDate($device?->created_at,time:true) }}</td>
                                         <td x-data="{ show: false }">

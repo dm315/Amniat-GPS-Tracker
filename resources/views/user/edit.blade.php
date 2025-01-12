@@ -72,40 +72,44 @@
                         <x-input-error :messages="$errors->get('password')" class="mt-2"/>
                     </div>
 
+                    <div x-data="{ selected: @js(old('user_type', $user->user_type)) }">
 
-                    <div class="col-12 mb-3">
-                        <label class="form-label" for="user_type">نوع کاربر
-                            <sup class="text-danger">*</sup>
-                        </label>
-                        <select class="form-select" name="user_type" id="user_type">
-                            <option value="0" selected @selected(old('user_type', $user->user_type) == 0)>کاربر</option>
-                            <option value="1" @selected(old('user_type', $user->user_type) == 1)>ادمین</option>
-                            @notRole(['manager'])
-                            <option value="2" @selected(old('user_type', $user->user_type) == 2)>سوپر ادمین</option>
-                            @endnotRole
-                            <option value="3" @selected(old('user_type', $user->user_type) == 3)>مدیر سازمان</option>
-                        </select>
-                        <x-input-error :messages="$errors->get('user_type')" class="mt-2"/>
-                        @if(can('user-permissions'))
-                            <div class="d-block">
-                                <small class="text-muted">لطفا نام کاربری و نقش را مشابه هم انتخاب کنید.</small>
-                            </div>
-                        @endif
-                    </div>
-
-                    @if($user->hasUserType('user'))
                         <div class="col-12 mb-3">
-                            <label class="form-label" for="user_id">عضو سازمان
+                            <label class="form-label" for="user_type">نوع کاربر
                                 <sup class="text-danger">*</sup>
                             </label>
-                            @php
-                                $options = $companies->mapWithKeys(fn($item) => [$item->id => implode(' - ', [$item->name , $item->manager->name])])->toArray();
-                            @endphp
-                            <x-partials.alpine.input.select-option :$options
-                                                                   name="company_id"/>
-                            <x-input-error :messages="$errors->get('company_id')" class="mt-2"/>
+                            <select class="form-select" name="user_type" id="user_type" x-model="selected">
+                                <option value="0" selected @selected(old('user_type', $user->user_type) == 0)>کاربر</option>
+                                <option value="1" @selected(old('user_type', $user->user_type) == 1)>ادمین</option>
+                                @notRole(['manager'])
+                                <option value="2" @selected(old('user_type', $user->user_type) == 2)>سوپر ادمین</option>
+                                @endnotRole
+                                <option value="3" @selected(old('user_type', $user->user_type) == 3)>مدیر سازمان</option>
+                            </select>
+                            <x-input-error :messages="$errors->get('user_type')" class="mt-2"/>
+                            @if(can('user-permissions'))
+                                <div class="d-block">
+                                    <small class="text-muted">لطفا نام کاربری و نقش را مشابه هم انتخاب کنید.</small>
+                                </div>
+                            @endif
                         </div>
-                    @endif
+
+
+                        {{-- @if($user->hasUserType('user')) --}}
+                            <div class="col-12 mb-3" x-cloak x-show="[0,1].includes(parseInt(selected))">
+                                <label class="form-label" for="user_id">عضو سازمان
+                                    <sup class="text-danger">*</sup>
+                                </label>
+                                @php
+                                    $options = $companies->mapWithKeys(fn($item) => [$item->id => implode(' - ', [$item->name , $item->manager->name])])->toArray();
+                                @endphp
+                                <x-partials.alpine.input.select-option :$options
+                                                                    name="company_id"/>
+                                <x-input-error :messages="$errors->get('company_id')" class="mt-2"/>
+                            </div>
+                        {{-- @endif --}}
+
+                    </div>
 
 
                     <div class="col-12 mb-3">

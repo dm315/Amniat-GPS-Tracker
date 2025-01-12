@@ -29,7 +29,7 @@
                         <div class="mobile-back text-end"><span>بازگشت</span><i
                                     class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
                     </li>
-                    @notRole(['manager'])
+                    @role(['super-admin'])
                     <li class="sidebar-list">
                         <a
                                 @class(['sidebar-link sidebar-title link-nav', 'active' => Route::is('home')]) href="{{ route('home') }}">
@@ -42,7 +42,7 @@
                             <span>داشبورد</span>
                         </a>
                     </li>
-                    @endnotRole
+                    @endrole
                     @if(can('show-map'))
                     <li class="sidebar-list">
                         <a @class(['sidebar-link sidebar-title link-nav', 'active' => Route::is('map')]) href="{{ route('map') }}">

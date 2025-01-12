@@ -76,11 +76,11 @@
                                 </div>
                                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2"/>
                             </div>
-                            <div class="col-12">
+                            {{-- <div class="col-12">
                                 <p class="mt-3 mb-0 text-end">گذرواژه قبلی را فراموش کرده اید؟
                                     <a class="ms-2" href="{{ route('profile.forgot-password') }}">بازیابی گذرواژه</a>
                                 </p>
-                            </div>
+                            </div> --}}
                         </div>
 
                         <div class="col-12 mt-2">
